@@ -14,8 +14,13 @@
 
 'use strict';
 
+const AdminConnection = require('composer-admin').AdminConnection;
 const BusinessNetworkConnection = require('composer-client').BusinessNetworkConnection;
+const BusinessNetworkDefinition = require('composer-common').BusinessNetworkDefinition;
 
+const hlc_idCard = require('composer-common').IdCard;
+const path = require('path');
+const _home = require('os').homedir();
 require('chai').should();
 
 // const network = 'zerotoblockchain-network';
@@ -559,7 +564,7 @@ describe('Finance Network', function () {
     });
 
     describe('#issueBackorder', () => {
-
+        console.log("issue backorder\n");
         it('should be able to record a product backorder', () => {
             const factory = businessNetworkConnection.getBusinessNetwork().getFactory();
 
@@ -597,40 +602,40 @@ describe('Finance Network', function () {
         });
     });
     describe('#issueCancel', () => {
-
+        console.log("issue cancel\n");
         it('should be able to record an order cancellation', () => {
-            const factory = businessNetworkConnection.getBusinessNetwork().getFactory();
+        const factory = businessNetworkConnection.getBusinessNetwork().getFactory();
 
-            // create the Deliver transaction
-            const orderNow = factory.newTransaction(NS, 'OrderCancel');
+        // create the Deliver transaction
+        const orderNow = factory.newTransaction(NS, 'OrderCancel');
 
-            return businessNetworkConnection.getAssetRegistry(NS + '.Order')
-                .then((assetRegistry) => {
-                    // re-get the commodity
-                    return assetRegistry.get(orderNo);
-                })
-                .then((newOrder) => {
-                    newOrder.buyer.$identifier.should.equal(buyerID);
-                    newOrder.$identifier.should.equal(orderNo);
+        return businessNetworkConnection.getAssetRegistry(NS + '.Order')
+            .then((assetRegistry) => {
+                // re-get the commodity
+                return assetRegistry.get(orderNo);
+            })
+            .then((newOrder) => {
+                newOrder.buyer.$identifier.should.equal(buyerID);
+                newOrder.$identifier.should.equal(orderNo);
 
-                    orderNow.order = factory.newRelationship(NS, 'Order', newOrder.$identifier);
-                    orderNow.seller = factory.newRelationship(NS, 'Seller', newOrder.seller.$identifier);
-                    orderNow.buyer = factory.newRelationship(NS, 'Buyer', newOrder.buyer.$identifier);
-                    // submit the transaction
-                    return businessNetworkConnection.submitTransaction(orderNow)
-                        .then(() => {
-                            return businessNetworkConnection.getAssetRegistry(NS + '.Order');
-                        })
-                        .then((assetRegistry) => {
-                            // re-get the commodity
-                            return assetRegistry.get(orderNo);
-                        })
-                        .then((newOrder) => {
-                            // the owner of the commodity should be buyer
-                            JSON.parse(newOrder.status).text.should.equal(orderStatus.Cancelled.text);
-                        });
-
-                });
+                orderNow.order = factory.newRelationship(NS, 'Order', newOrder.$identifier);
+                orderNow.seller = factory.newRelationship(NS, 'Seller', newOrder.seller.$identifier);
+                orderNow.buyer = factory.newRelationship(NS, 'Buyer', newOrder.buyer.$identifier);
+                // submit the transaction
+                return businessNetworkConnection.submitTransaction(orderNow)
+                    .then(() => {
+                        return businessNetworkConnection.getAssetRegistry(NS + '.Order');
+                    })
+                    .then((assetRegistry) => {
+                        // re-get the commodity
+                        return assetRegistry.get(orderNo);
+                    })
+                    .then((newOrder) => {
+                        // the owner of the commodity should be buyer
+                        console.log("Status:"+newOrder.status);
+                        JSON.parse(newOrder.status).text.should.equal(orderStatus.Cancelled.text);
+                    });
+            });
         });
     });
 
