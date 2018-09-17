@@ -71,8 +71,8 @@ function Buy(purchase) {
  * @transaction
  */
 function OrderCancel(purchase) {
-        if ((purchase.order.status == JSON.stringify(orderStatus.Created)) || (purchase.order.status == JSON.stringify(orderStatus.Bought)))
-        {
+/*        if ((purchase.order.status == JSON.stringify(orderStatus.Created)) || (purchase.order.status == JSON.stringify(orderStatus.Bought)))
+ */       {
             purchase.order.buyer = purchase.buyer;
             purchase.order.seller = purchase.seller;
             purchase.order.cancelled = new Date().toISOString();

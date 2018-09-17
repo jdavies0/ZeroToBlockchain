@@ -564,7 +564,7 @@ describe('Finance Network', function () {
     });
 
     describe('#issueBackorder', () => {
-        console.log("issue backorder\n");
+
         it('should be able to record a product backorder', () => {
             const factory = businessNetworkConnection.getBusinessNetwork().getFactory();
 
@@ -602,7 +602,7 @@ describe('Finance Network', function () {
         });
     });
     describe('#issueCancel', () => {
-        console.log("issue cancel\n");
+
         it('should be able to record an order cancellation', () => {
         const factory = businessNetworkConnection.getBusinessNetwork().getFactory();
 
@@ -632,7 +632,6 @@ describe('Finance Network', function () {
                     })
                     .then((newOrder) => {
                         // the owner of the commodity should be buyer
-                        console.log("Status:"+newOrder.status);
                         JSON.parse(newOrder.status).text.should.equal(orderStatus.Cancelled.text);
                     });
             });
