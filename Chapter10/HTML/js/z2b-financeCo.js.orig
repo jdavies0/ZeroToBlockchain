@@ -87,7 +87,7 @@ function listFinanceOrders()
 function formatFinanceOrders(_target, _orders)
 {
     _target.empty();
-    let _str = ''; let _date = '';
+    let _str = ''; let _date = ''; 
     for (let each in _orders)
     {(function(_idx, _arr)
         { let _action = '<th><select id=f_action'+_idx+'><option value="NoAction">No Action</option>';
@@ -103,47 +103,46 @@ function formatFinanceOrders(_target, _orders)
         switch (JSON.parse(_arr[_idx].status).code)
         {
         case orderStatus.PayRequest.code:
-            _date = _arr[_idx].paymentRequested;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Delivered.code:
-            _date = _arr[_idx].delivered;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Dispute.code:
-            _date = _arr[_idx].disputeOpened + '<br/>'+_arr[_idx].dispute;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Resolve.code:
-            _date = _arr[_idx].disputeResolved + '<br/>'+_arr[_idx].resolve;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Created.code:
-            _date = _arr[_idx].created;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Cancelled.code:
-            _date = _arr[_idx].cancelled;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Backordered.code:
-            _date = _arr[_idx].dateBackordered + '<br/>'+_arr[_idx].backorder;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.ShipRequest.code:
-            _date = _arr[_idx].requestShipment;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Authorize.code:
-            _date = _arr[_idx].approved;
-            _action += '<option value="Pay">Pay</option>';
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Bought.code:
-            _date = _arr[_idx].bought;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Delivering.code:
-            _date = _arr[_idx].delivering;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Ordered.code:
-            _date = _arr[_idx].ordered;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Refund.code:
-            _date = _arr[_idx].orderRefunded + '<br/>'+_arr[_idx].refund;
+            // ========> Your Code Goes Here <=========
             break;
         case orderStatus.Paid.code:
-            _date = _arr[_idx].paid;
+            // ========> Your Code Goes Here <=========
             break;
         default:
             break;
